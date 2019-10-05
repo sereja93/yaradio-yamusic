@@ -1,4 +1,4 @@
-import * as notification from './notification/notification';
+import * as notification from './notification';
 
 const getTrack = `
   ;(function(){

@@ -1,9 +1,9 @@
 {
   "name": "yaradio-yamusic",
-  "productName": "Yandex.Music.App",
+  "productName": "Yandex.Music",
   "version": "0.3.6",
   "description": "Yandex Radio and Yandex Music desktop application, two in one :)",
-  "main": "main.ts",
+  "main": "dist/main.js",
   "scripts": {
     "build": "tsc",
     "watch": "tsc -w",
@@ -13,7 +13,7 @@
     "build:all": "npm run build:win && npm run build:linux && npm run build:mac",
     "build:win": "electron-packager . --platform=win32 --arch=all --icon=media/icon/yaradio_64x64.ico --name=yaMusic --executableName=yaMusic --out=distr/win --overwrite=true --ignore=distr",
     "build:linux": "electron-packager . --platform=linux --arch=all --icon=media/icon/yaradio_64x64.ico --name=yaMusic --executableName=yaMusic --out=distr/linux --overwrite=true --ignore=distr",
-    "build:mac": "electron-packager . --platform=darwin --arch=all --icon=media/icon/music_256.icns --name=yaMusic --executableName=yaMusic --out=distr/mac --overwrite=true --app-bundle-id=yaMusic --app-category-type=public.app-category.music --ignore=distr",
+    "build:mac": "electron-packager . --platform=darwin --arch=all --icon=media/icon/music_256.icns --name=yaMusic --executableName=yaMusic --out=distr/mac --overwrite=true --app-bundle-id=yaMusic --app-category-type=public.app-category.music --ignore=/distr --ignore=/src --ignore=/.idea",
     "gen:changelog": "github_changelog_generator -u dedpnd -p yaradio-yamusic"
   },
   "repository": {
@@ -37,7 +37,6 @@
   },
   "homepage": "https://github.com/dedpnd/yaradio-yamusic#readme",
   "dependencies": {
-    "electron": "6.0.11",
     "electron-store": "^5.0.0",
     "jquery": "^3.4.1",
     "mkdirp": "^0.5.1",
@@ -56,8 +55,9 @@
     "@types/request-promise": "^4.1.44",
     "@types/filesystem": "0.0.29",
     "cross-var": "^1.1.0",
+    "electron": "6.0.11",
     "electron-debug": "^2.2.0",
-    "electron-packager": "^13.1.1",
+    "electron-packager": "^14.0.6",
     "tslint": "^5.19.0",
     "typescript": "^3.6.0"
   }

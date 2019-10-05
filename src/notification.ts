@@ -1,10 +1,10 @@
 import * as path from 'path';
 import * as notifier from 'node-notifier';
-import * as store from '../store/store';
+import * as store from './store';
 import * as rp from 'request-promise';
 import * as fs from 'fs';
 import * as mkdirp from 'mkdirp';
-import {StorageKeys} from '../store/store';
+import {StorageKeys} from './store';
 import * as ElectronStore from 'electron-store';
 
 

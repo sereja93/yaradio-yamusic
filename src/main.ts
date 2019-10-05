@@ -3,13 +3,12 @@ import {app, BrowserWindow, session, NativeImage} from 'electron';
 import * as path from 'path';
 import * as fs from 'mz/fs';
 
-import * as  store from './modules/store/store';
-import * as ctxMenu from './modules/menu/ctxMenu';
-import * as globalShortcut from './modules/globalShortcut';
-import * as notifiNextSing from './modules/notifiNextSing';
-import {StorageKeys} from './modules/store/store';
+import * as  store from './store';
+import * as ctxMenu from './ctxMenu';
+import * as globalShortcut from './globalShortcut';
+import * as notifiNextSing from './notifiNextSing';
+import {StorageKeys} from './store';
 import * as ElectronStore from 'electron-store';
-
 
 
 if (process.env.node_env === 'dev') {
@@ -55,7 +54,7 @@ function createWindow() {
         autoHideMenuBar: true,
         backgroundColor: '#fff',
         webPreferences: {
-            preload: path.join(__dirname, 'modules/js', 'browser.js'),
+            preload: path.join(__dirname,  'browser.js'),
             nodeIntegration: false,
             plugins: true,
         },
@@ -118,7 +117,7 @@ app.on('ready', () => {
     browserWindow.setMenu(null);
     const page = browserWindow.webContents;
     page.on('dom-ready', () => {
-        page.insertCSS(fs.readFileSync(path.join(__dirname, '../modules/css', 'css.css'), 'utf8'));
+        page.insertCSS(fs.readFileSync(path.join(__dirname, '../css.css'), 'utf8'));
         browserWindow.show();
     });
 

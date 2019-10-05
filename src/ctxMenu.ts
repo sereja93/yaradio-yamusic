@@ -1,12 +1,12 @@
 import * as path from 'path';
-import * as store from '../store/store';
-import {StorageKeys} from '../store/store';
-import * as notification from '../notification/notification';
+import * as store from './store';
+import {StorageKeys} from './store';
+import * as notification from './notification';
 import * as ElectronStore from 'electron-store';
 import {App, Menu, Tray} from 'electron';
 
 
-const iconPath = path.join(__dirname, '../../../', 'media/icon', 'music_16.png');
+const iconPath = path.join(__dirname, '../', 'media/icon', 'music_16.png');
 
 
 function ctxTpl(win: any, app: App): Array<any> {
