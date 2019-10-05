@@ -43,7 +43,7 @@ function createWindow() {
     y: lastWindowState.y,
     height: lastWindowState.height || 700,
     width: lastWindowState.width || 848,
-    icon: path.join(__dirname, 'media/icon', 'yaradio.png'),
+    icon: path.join(__dirname, 'media/icon', 'music_256.png'),
     titleBarStyle: 'hiddenInset',
     minHeight: 700,
     minWidth: 848,

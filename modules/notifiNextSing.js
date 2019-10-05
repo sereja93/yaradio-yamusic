@@ -30,11 +30,11 @@ const getImg = `
     let trackImg;
     if(/radio/.test(location.hostname)){
       trackImg = document.querySelector('.slider__item_playing .track__cover') && document.querySelector('.slider__item_playing .track__cover').style.backgroundImage || ''
-      return 'https:' + trackImg.replace('url("','').replace('")','').replace(/\d+x\d+/, '100x100')
+      return 'https:' + trackImg.replace('url("','').replace('")','').replace('50x50', '100x100')
     }
 
     trackImg = document.querySelector('.track-cover img') && document.querySelector('.track-cover img').getAttribute('src') || ''
-    return 'https:' + trackImg.replace(/\d+x\d+/, '100x100')
+    return 'https:' + trackImg.replace('50x50', '100x100')
   })();
 `;
 
