@@ -1,52 +1,64 @@
 {
-    "name": "yaradio-yamusic",
-    "productName": "Yandex.Music.App",
-    "version": "0.3.6",
-    "description": "Yandex Radio and Yandex Music desktop application, two in one :)",
-    "main": "index.js",
-    "scripts": {
-        "start": "electron .",
-        "s:dev": "set NODE_ENV=dev&&electron .",
-        "build:all": "npm run build:win && npm run build:linux && npm run build:mac",
-        "build:win": "electron-packager . --platform=win32 --arch=all --icon=media/icon/yaradio_64x64.ico --name=yaMusic --executableName=yaMusic --out=distr/win --overwrite=true --ignore=distr",
-        "build:linux": "electron-packager . --platform=linux --arch=all --icon=media/icon/yaradio_64x64.ico --name=yaMusic --executableName=yaMusic --out=distr/linux --overwrite=true --ignore=distr",
-        "build:mac": "electron-packager . --platform=darwin --arch=all --icon=media/icon/music_256.icns --name=yaMusic --executableName=yaMusic --out=distr/mac --overwrite=true --app-bundle-id=yaMusic --app-category-type=public.app-category.music --ignore=distr",
-        "gen:changelog": "github_changelog_generator -u dedpnd -p yaradio-yamusic"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/dedpnd/yaradio-yamusic.git"
-    },
-    "author": "dedpnd",
-    "license": "MIT",
-    "keyword": [
-        "electron",
-        "electron.app",
-        "electronapp",
-        "yandex music app",
-        "yandex.music.app",
-        "yandex radio app",
-        "yandex.radio.app",
-        "electron music player"
-    ],
-    "bugs": {
-        "url": "https://github.com/dedpnd/yaradio-yamusic/issues"
-    },
-    "homepage": "https://github.com/dedpnd/yaradio-yamusic#readme",
-    "dependencies": {
-        "electron": "^4.2.10",
-        "electron-context-menu": "^0.11.0",
-        "electron-debug": "^2.2.0",
-        "electron-store": "^2.0.0",
-        "mz": "^2.7.0",
-        "node-notifier": "^5.4.3",
-        "request": "^2.88.0",
-        "request-promise": "^4.2.4",
-        "file-system": "^2.2.2",
-        "mkdirp": "^0.5.1"
-    },
-    "devDependencies": {
-        "cross-var": "^1.1.0",
-        "electron-packager": "^13.1.1"
-    }
+  "name": "yaradio-yamusic",
+  "productName": "Yandex.Music.App",
+  "version": "0.3.6",
+  "description": "Yandex Radio and Yandex Music desktop application, two in one :)",
+  "main": "main.ts",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "start": "npm run build && electron ./dist/main.js",
+    "s:dev": "set NODE_ENV=dev&&electron .",
+    "build:all": "npm run build:win && npm run build:linux && npm run build:mac",
+    "build:win": "electron-packager . --platform=win32 --arch=all --icon=media/icon/yaradio_64x64.ico --name=yaMusic --executableName=yaMusic --out=distr/win --overwrite=true --ignore=distr",
+    "build:linux": "electron-packager . --platform=linux --arch=all --icon=media/icon/yaradio_64x64.ico --name=yaMusic --executableName=yaMusic --out=distr/linux --overwrite=true --ignore=distr",
+    "build:mac": "electron-packager . --platform=darwin --arch=all --icon=media/icon/music_256.icns --name=yaMusic --executableName=yaMusic --out=distr/mac --overwrite=true --app-bundle-id=yaMusic --app-category-type=public.app-category.music --ignore=distr",
+    "gen:changelog": "github_changelog_generator -u dedpnd -p yaradio-yamusic"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dedpnd/yaradio-yamusic.git"
+  },
+  "author": "dedpnd",
+  "license": "MIT",
+  "keyword": [
+    "electron",
+    "electron.app",
+    "electronapp",
+    "yandex music app",
+    "yandex.music.app",
+    "yandex radio app",
+    "yandex.radio.app",
+    "electron music player"
+  ],
+  "bugs": {
+    "url": "https://github.com/dedpnd/yaradio-yamusic/issues"
+  },
+  "homepage": "https://github.com/dedpnd/yaradio-yamusic#readme",
+  "dependencies": {
+    "electron": "6.0.11",
+    "electron-store": "^5.0.0",
+    "jquery": "^3.4.1",
+    "mkdirp": "^0.5.1",
+    "mz": "^2.7.0",
+    "node-notifier": "^5.4.3",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  },
+  "devDependencies": {
+    "@types/mz": "0.0.32",
+    "@types/electron-store": "^3.2.0",
+    "@types/jquery": "^3.3.31",
+    "@types/mkdirp": "^0.5.2",
+    "@types/node": "^12.7.11",
+    "@types/node-notifier": "^5.4.0",
+    "@types/request-promise": "^4.1.44",
+    "@types/filesystem": "0.0.29",
+    "cross-var": "^1.1.0",
+    "electron-debug": "^2.2.0",
+    "electron-packager": "^13.1.1",
+    "tslint": "^5.19.0",
+    "typescript": "^3.6.0"
+  }
 }

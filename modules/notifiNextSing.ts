@@ -1,4 +1,4 @@
-const notification = require('./notification/notification')
+import * as notification from './notification/notification';
 
 const getTrack = `
   ;(function(){
@@ -38,28 +38,22 @@ const getImg = `
   })();
 `;
 
-exports.init = (win) => {
+exports.init = (win: any) => {
 
-  return sendNotifi
+    return sendNotifi;
 
-  function sendNotifi() {
-    Promise.all([getInfoFromDOM(getTrack), getInfoFromDOM(getArtist), getInfoFromDOM(getImg)]).then((v) => {
-      if (v[0] && v[1]) {
-        notification.notifi(v[0], v[1], v[2]);
-      }
-    })
-  }
-
-  async function getInfoFromDOM(command) {
-    let checkData = async () => {
-      return await win.webContents.executeJavaScript(command);
+    function sendNotifi() {
+        Promise.all([getInfoFromDOM(getTrack), getInfoFromDOM(getArtist), getInfoFromDOM(getImg)]).then((v) => {
+            if (v[0] && v[1]) {
+                (notification as any).notifi(v[0], v[1], v[2], false);
+            }
+        });
     }
-    return await checkData()
-  }
 
-}
-
-// Util
-// function delay(millis) {
-//   return new Promise((resolve) => setTimeout(resolve, millis));
-// }
+    async function getInfoFromDOM(command: any) {
+        const checkData = async () => {
+            return await win.webContents.executeJavaScript(command);
+        };
+        return await checkData();
+    }
+};
