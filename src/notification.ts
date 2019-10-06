@@ -47,7 +47,7 @@ async function notify(title: string, msg: string, img: string, force: boolean) {
                             notifier.notify({
                                 title: title || 'YaRadio',
                                 message: msg || '-',
-                                icon: path.join(__dirname, '../../media/icon', 'music_64.png'),
+                                icon: path.join(__dirname, '../../../media/icon', 'music_64.png'),
                                 sound: false,
                                 wait: false,
                             }, (error: any) => {

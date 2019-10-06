@@ -8,13 +8,13 @@ import {createContextMenu} from './ctxMenu';
 import {createGlobalShortcuts} from './globalShortcut';
 import {createNotifySing} from './notifyNextSing';
 import * as ElectronStore from 'electron-store';
-import * as electronDebug from 'electron-debug';
 import {createTouchBar} from './touchBar';
+import * as electronDebug from 'electron-debug';
 
 
 if (process.env.node_env === 'dev') {
     electronDebug({
-        enabled: true,
+        isEnabled: true,
         showDevTools: true,
         devToolsMode: 'undocked',
     });
