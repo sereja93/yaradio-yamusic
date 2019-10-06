@@ -1,14 +1,13 @@
 import * as path from 'path';
 import * as notifier from 'node-notifier';
-import * as store from './store';
 import * as rp from 'request-promise';
 import * as fs from 'fs';
 import * as mkdirp from 'mkdirp';
-import {StorageKeys} from './store';
+import {StorageKeys, store} from './store';
 import * as ElectronStore from 'electron-store';
 
 
-exports.notifi = async (title: string, msg: string, img: string, force: boolean) => {
+async function notify(title: string, msg: string, img: string, force: boolean) {
 
     const filename = path.join(__dirname, '../../../media/tmp', 'image.jpeg');
 
@@ -70,4 +69,6 @@ exports.notifi = async (title: string, msg: string, img: string, force: boolean)
     } else if (force) {
         sendNotify();
     }
-};
+}
+
+export {notify};

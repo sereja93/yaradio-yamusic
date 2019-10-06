@@ -1,16 +1,13 @@
 import * as path from 'path';
-import * as store from './store';
-import {StorageKeys} from './store';
-import * as notification from './notification';
-import * as ElectronStore from 'electron-store';
 import {App, Menu, Tray} from 'electron';
+import {store} from './store';
+import {notify} from './notification';
 
 
 const iconPath = path.join(__dirname, '../', 'media/icon', 'music_16.png');
 
 
 function ctxTpl(win: any, app: App): Array<any> {
-    const storage = (store as ElectronStore<StorageKeys>);
 
     return [
         {
@@ -47,11 +44,11 @@ function ctxTpl(win: any, app: App): Array<any> {
             submenu: [{
                 type: 'checkbox',
                 label: 'Notification',
-                checked: storage.get('notifications'),
+                checked: store.get('notifications'),
                 click: () => {
-                    const value = !storage.get('notifications');
-                    (notification as any).notifi('Settings', value ? 'Notification enabled' : 'Notification disabled', null, true);
-                    storage.set('notifications', value);
+                    const value = !store.get('notifications');
+                    notify('Settings', value ? 'Notification enabled' : 'Notification disabled', null, true);
+                    store.set('notifications', value);
                 },
             }],
         },
@@ -72,7 +69,7 @@ function toggleWindowVisibility(win: any) {
     }
 }
 
-module.exports.create = (win: any, app: any) => {
+function createContextMenu(win: any, app: App) {
 
     const ctxMenu = Menu.buildFromTemplate(ctxTpl(win, app));
 
@@ -88,4 +85,6 @@ module.exports.create = (win: any, app: any) => {
         appIcon.setHighlightMode('always');
     });
 
-};
+}
+
+export {createContextMenu};

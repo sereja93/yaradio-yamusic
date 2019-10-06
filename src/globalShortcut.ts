@@ -1,11 +1,7 @@
 import {App, globalShortcut} from 'electron';
 
-// export interface NavigationBtn {
-//     accelerator: string;
-//     func: () => void;
-// }
 
-export function shortcutTpl(win: any): Array<any> {
+function shortcutTpl(win: any): Array<any> {
     return [
         {
             accelerator: 'MediaPlayPause',
@@ -26,7 +22,7 @@ export function shortcutTpl(win: any): Array<any> {
     ];
 }
 
-module.exports.init = (win: any, app: App) => {
+function createGlobalShorcutst(win: any, app: App) {
     const tplShortcut = shortcutTpl(win);
 
     tplShortcut.forEach((e) => {
@@ -37,4 +33,6 @@ module.exports.init = (win: any, app: App) => {
         // Unregister all shortcuts.
         globalShortcut.unregisterAll();
     });
-};
+}
+
+export {createGlobalShorcutst};

@@ -20,4 +20,4 @@ const store = new ElectronStore<StorageKeys>({
 
 store.set('quit', false);
 
-module.exports = store;
+export {store};

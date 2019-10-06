@@ -1,20 +1,21 @@
-import {app, BrowserWindow, session, NativeImage} from 'electron';
+import {app, BrowserWindow, NativeImage, session, WebContents} from 'electron';
 
 import * as path from 'path';
 import * as fs from 'mz/fs';
 
-import * as  store from './store';
-import * as ctxMenu from './ctxMenu';
-import * as globalShortcut from './globalShortcut';
-import * as notifiNextSing from './notifiNextSing';
-import {StorageKeys} from './store';
+import {StorageKeys, store} from './store';
+import {createContextMenu} from './ctxMenu';
+import {createGlobalShorcutst} from './globalShortcut';
+import {createNotifySing} from './notifyNextSing';
 import * as ElectronStore from 'electron-store';
+import * as electronDebug from 'electron-debug';
 
 
 if (process.env.node_env === 'dev') {
-    require('electron-debug')({
+    electronDebug({
         enabled: true,
-        showDevTools: 'undocked',
+        showDevTools: true,
+        devToolsMode: 'undocked',
     });
 }
 let browserWindow: BrowserWindow;
@@ -33,12 +34,11 @@ app.on('second-instance', () => {
     }
 });
 
-function createWindow() {
+function createWindow(): BrowserWindow {
 
-    const storage = (store as ElectronStore<StorageKeys>);
 
-    const lastWindowState = storage.get('lastWindowState');
-    const lastApp = storage.get('lastApp');
+    const lastWindowState = store.get('lastWindowState');
+    const lastApp = store.get('lastApp');
 
     browserWindow = new BrowserWindow({
         title: 'YaRadio',
@@ -54,7 +54,7 @@ function createWindow() {
         autoHideMenuBar: true,
         backgroundColor: '#fff',
         webPreferences: {
-            preload: path.join(__dirname,  'browser.js'),
+            preload: path.join(__dirname, 'browser.js'),
             nodeIntegration: false,
             plugins: true,
         },
@@ -67,7 +67,7 @@ function createWindow() {
     })());
 
     browserWindow.on('close', e => {
-        if (!storage.get('quit')) {
+        if (!store.get('quit')) {
             e.preventDefault();
         }
 
@@ -112,16 +112,16 @@ function createWindow() {
 
 app.on('ready', () => {
     browserWindow = createWindow();
-    (ctxMenu as any).create(browserWindow, app);
-    (globalShortcut as any).init(browserWindow, app);
+    createContextMenu(browserWindow, app);
+    createGlobalShorcutst(browserWindow, app);
     browserWindow.setMenu(null);
-    const page = browserWindow.webContents;
+    const page: WebContents = browserWindow.webContents;
     page.on('dom-ready', () => {
         page.insertCSS(fs.readFileSync(path.join(__dirname, '../css.css'), 'utf8'));
         browserWindow.show();
     });
 
-    const sendNotifi = (notifiNextSing as any).init(browserWindow);
+    const sendNotify = createNotifySing(browserWindow);
 
     session.defaultSession.webRequest.onBeforeRequest({urls: ['*://*/*']}, (details, callback) => {
         // Skip advertising
@@ -132,7 +132,7 @@ app.on('ready', () => {
         }
         // Notification for next sing
         if (/start\?__t/.test(details.url)) {
-            setTimeout(sendNotifi, 1000);
+            setTimeout(sendNotify, 1000);
         }
         callback(details as any);
     });
