@@ -1,5 +1,5 @@
-import * as notification from './notification';
 import {BrowserWindow} from 'electron';
+import {notify} from './notification';
 
 const getTrack = `
   ;(function(){
@@ -46,7 +46,7 @@ function createNotifySing(win: BrowserWindow) {
     function sendNotify() {
         Promise.all([getInfoFromDOM(getTrack), getInfoFromDOM(getArtist), getInfoFromDOM(getImg)]).then((v) => {
             if (v[0] && v[1]) {
-                (notification as any).notifi(v[0], v[1], v[2], false);
+                notify(v[0], v[1], v[2], false);
             }
         });
     }

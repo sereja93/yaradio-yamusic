@@ -39,8 +39,6 @@ async function notify(title: string, msg: string, img: string, force: boolean) {
             const dataImg = await rp.get(img, {encoding: 'binary'}).catch((err) => {
                 console.log('Error: Notifier', err);
             });
-
-            console.log(filename);
             write(filename, dataImg,
                 (err: any) => {
                     if (err) {

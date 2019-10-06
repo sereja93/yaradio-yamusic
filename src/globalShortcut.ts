@@ -22,7 +22,7 @@ function shortcutTpl(win: any): Array<any> {
     ];
 }
 
-function createGlobalShorcutst(win: any, app: App) {
+function createGlobalShortcuts(win: any, app: App) {
     const tplShortcut = shortcutTpl(win);
 
     tplShortcut.forEach((e) => {
@@ -35,4 +35,4 @@ function createGlobalShorcutst(win: any, app: App) {
     });
 }
 
-export {createGlobalShorcutst};
+export {createGlobalShortcuts};

@@ -5,10 +5,11 @@ import * as fs from 'mz/fs';
 
 import {StorageKeys, store} from './store';
 import {createContextMenu} from './ctxMenu';
-import {createGlobalShorcutst} from './globalShortcut';
+import {createGlobalShortcuts} from './globalShortcut';
 import {createNotifySing} from './notifyNextSing';
 import * as ElectronStore from 'electron-store';
 import * as electronDebug from 'electron-debug';
+import {createTouchBar} from './touchBar';
 
 
 if (process.env.node_env === 'dev') {
@@ -59,6 +60,10 @@ function createWindow(): BrowserWindow {
             plugins: true,
         },
     });
+
+
+    createTouchBar(browserWindow);
+
     browserWindow.loadURL((() => {
         if (lastApp === 'YaMusic') {
             return 'https://music.yandex.ru/';
@@ -113,7 +118,7 @@ function createWindow(): BrowserWindow {
 app.on('ready', () => {
     browserWindow = createWindow();
     createContextMenu(browserWindow, app);
-    createGlobalShorcutst(browserWindow, app);
+    createGlobalShortcuts(browserWindow, app);
     browserWindow.setMenu(null);
     const page: WebContents = browserWindow.webContents;
     page.on('dom-ready', () => {
