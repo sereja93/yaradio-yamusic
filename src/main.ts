@@ -9,16 +9,7 @@ import {createGlobalShortcuts} from './globalShortcut';
 import {createNotifySing} from './notifyNextSing';
 import * as ElectronStore from 'electron-store';
 import {createTouchBar} from './touchBar';
-import * as electronDebug from 'electron-debug';
 
-
-if (process.env.node_env === 'dev') {
-    electronDebug({
-        isEnabled: true,
-        showDevTools: true,
-        devToolsMode: 'undocked',
-    });
-}
 let browserWindow: BrowserWindow;
 const appRunning = app.requestSingleInstanceLock();
 
