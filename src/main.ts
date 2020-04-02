@@ -10,6 +10,7 @@ import {createNotifySing} from './notifyNextSing';
 import * as ElectronStore from 'electron-store';
 import {createTouchBar} from './touchBar';
 
+
 let browserWindow: BrowserWindow;
 const appRunning = app.requestSingleInstanceLock();
 
@@ -40,7 +41,7 @@ function createWindow(): BrowserWindow {
         height: lastWindowState.height || 700,
         width: lastWindowState.width || 848,
         icon: path.join(__dirname, 'media/icon', 'music_256.png'),
-        titleBarStyle: 'hiddenInset',
+        titleBarStyle: 'default',
         minHeight: 700,
         minWidth: 848,
         autoHideMenuBar: true,
