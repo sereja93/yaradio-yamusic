@@ -43,29 +43,11 @@ async function notify(title: string, msg: string, img: string, force: boolean) {
                 (err: any) => {
                     if (err) {
                         console.log('Error: Notifier', err);
-                        const sendNotifyWhenError = function () {
-                            notifier.notify({
-                                title: title || 'YaRadio',
-                                message: msg || '-',
-                                icon: path.join(__dirname, '../../../media/icon', 'music_64.png'),
-                                sound: false,
-                                wait: false,
-                            }, (error: any) => {
-                                if (error) {
-                                    console.log('Error: Notifier', error);
-                                }
-                            });
-                        };
-                        sendNotifyWhenError();
                     } else {
                         sendNotify();
                     }
                 });
-        } else {
-            sendNotify();
         }
-    } else if (force) {
-        sendNotify();
     }
 }
 
