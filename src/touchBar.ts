@@ -6,14 +6,14 @@ const {TouchBarLabel, TouchBarButton, TouchBarSpacer} = TouchBar;
 function createTouchBar(win: any) {
 
     const prev = new TouchBarButton({
-        label: '◀️',
+        label: 'Previous️',
         click: () => {
             win.send('prev');
         },
     });
 
     const play = new TouchBarButton({
-        label: '⏯️',
+        label: 'Play|Stop️',
         click: () => {
             win.send('play');
         },
@@ -21,16 +21,23 @@ function createTouchBar(win: any) {
 
 
     const next = new TouchBarButton({
-        label: '▶️',
+        label: 'Next️',
         click: () => {
             win.send('next');
+        },
+    });
+
+    const like = new TouchBarButton({
+        label: 'Like|Dislike',
+        click: () => {
+            win.send('like');
         },
     });
 
 
     win.setTouchBar(new TouchBar({
         items: [
-            prev, play, next,
+            new TouchBarSpacer({size: 'small'}), prev, play, next, , new TouchBarSpacer({size: 'large'}), like,
         ],
     }));
 }
