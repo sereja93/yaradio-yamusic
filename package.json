@@ -1,7 +1,7 @@
 {
-  "name": "yaradio-yamusic",
-  "productName": "Yandex.Music",
-  "version": "0.3.6",
+  "name": "yaradio.yamusic",
+  "productName": "Yandex Music",
+  "version": "0.3.7",
   "description": "Yandex Radio and Yandex Music desktop application, two in one :)",
   "main": "dist/main.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "build:all": "npm run build:win && npm run build:linux && npm run build:mac",
     "build:win": "electron-packager . --platform=win32 --arch=all --icon=media/icon/yaradio_64x64.ico --name=yaMusic --executableName=yaMusic --out=distr/win --overwrite=true --ignore=/distr --ignore=/src --ignore=/.idea",
     "build:linux": "electron-packager . --platform=linux --arch=all --icon=media/icon/yaradio_64x64.ico --name=yaMusic --executableName=yaMusic --out=distr/linux --overwrite=true --ignore=/distr --ignore=/src --ignore=/.idea",
-    "build:mac": "electron-packager . --platform=darwin --arch=all --icon=media/icon/music_256.icns --name=yaMusic --executableName=yaMusic --out=distr/mac --overwrite=true --app-bundle-id=yaMusic --app-category-type=public.app-category.music --ignore=/distr --ignore=/src --ignore=/.idea",
+    "build:mac": "electron-packager . --platform=darwin --arch=all --icon=media/icon/music_256.icns --name=YandexMusic --executableName=YandexMusic --out=distr/mac --overwrite=true --app-bundle-id=yaMusic --app-category-type=public.app-category.music --ignore=/distr --ignore=/src --ignore=/.idea",
     "gen:changelog": "github_changelog_generator -u dedpnd -p yaradio-yamusic"
   },
   "repository": {

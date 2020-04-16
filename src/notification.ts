@@ -1,11 +1,14 @@
 import * as path from 'path';
-import * as notifier from 'node-notifier';
+import * as nn from 'node-notifier';
 import * as rp from 'request-promise';
 import * as fs from 'fs';
 import * as mkdirp from 'mkdirp';
 import {StorageKeys, store} from './store';
 import * as ElectronStore from 'electron-store';
 
+const notifier = new nn.NotificationCenter({
+    customPath: path.join(__dirname, '../lib/terminal-notifier.app/Contents/MacOS/terminal-notifier'),
+});
 
 async function notify(title: string, msg: string, img: string, force: boolean) {
 
@@ -20,7 +23,7 @@ async function notify(title: string, msg: string, img: string, force: boolean) {
             icon: img ? filename : path.join(__dirname, '../../../media/icon', 'music_64.png'),
             sound: false,
             wait: false,
-        }, function (err) {
+        }, function (err: any) {
             if (err) {
                 console.log('Error: Notifier', err);
             }
