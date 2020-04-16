@@ -43,7 +43,7 @@ async function notify(title: string, msg: string, img: string, force: boolean) {
                 (err: any) => {
                     if (err) {
                         console.log('Error: Notifier', err);
-                        const sendNotify1 = function () {
+                        const sendNotifyWhenError = function () {
                             notifier.notify({
                                 title: title || 'YaRadio',
                                 message: msg || '-',
@@ -56,7 +56,7 @@ async function notify(title: string, msg: string, img: string, force: boolean) {
                                 }
                             });
                         };
-                        sendNotify1();
+                        sendNotifyWhenError();
                     } else {
                         sendNotify();
                     }

@@ -19,15 +19,22 @@ function ctxTpl(win: any, app: App): Array<any> {
             click: () => win.send('next'),
         },
         {
+            label: 'Previous Track',
+            click: () => win.send('prev'),
+        },
+        {
             type: 'separator',
         },
         {
-            label: 'Like',
+            label: 'Like  | Dislike',
             click: () => win.send('like'),
         },
         {
-            label: 'Dislike',
-            click: () => win.send('dislike'),
+            type: 'separator',
+        },
+        {
+            label: 'Mute  | No mute',
+            click: () => win.send('mute'),
         },
         {
             type: 'separator',

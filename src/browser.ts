@@ -1,35 +1,16 @@
 import {webFrame, ipcRenderer, shell} from 'electron';
 
-const el = {
-    prefButton: '.page-root .settings',
-    prefDialog: '.settings-stream.popup',
-    mute: '.page-root .volume',
-    play: '.page-station .player-controls__play',
-    next: '.page-station .slider__item_next',
-    prev: '.page-station .slider__item_prev',
-    like: '.page-station .button.like_action_like',
-    dislike: '.page-station .button.like_action_dislike',
-    activeStation: '.page-index .station_playing',
-};
 
 function exec(command: string) {
-    webFrame.executeJavaScript(`if (!window.a) a = new Mu.Adapter(); ${command};`);
+    webFrame.executeJavaScript(`if (externalAPI) { ${command} }`);
 }
 
-function click(s: string) {
-    const e = document.querySelector<HTMLElement>(s);
-    if (e) {
-        e.click();
-    }
-}
 
-ipcRenderer.on('play', () => exec('a.togglePause()'));
-ipcRenderer.on('next', () => exec('a.next()'));
-ipcRenderer.on('prev', () => click(el.prev));
-ipcRenderer.on('like', () => click(el.like));
-ipcRenderer.on('dislike', () => click(el.dislike));
-ipcRenderer.on('mute', () => exec('a.mute()'));
-ipcRenderer.on('HQ', () => exec('a.toggleHQ()'));
+ipcRenderer.on('play', () => exec('externalAPI.togglePause()'));
+ipcRenderer.on('next', () => exec('externalAPI.next()'));
+ipcRenderer.on('prev', () => exec('externalAPI.prev()'));
+ipcRenderer.on('like', () => exec('externalAPI.toggleLike()'));
+ipcRenderer.on('mute', () => exec('externalAPI.toggleMute()'));
 
 // Remove href from yandex logo
 document.onreadystatechange = () => {
@@ -49,20 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // Yandex.Radio init function
 function initRadio() {
     addSwitcher('', 'no__active');
-
-    // add href to rep github
-    const appendElement = jQuery('<div class="footer__static-text"><a class="link link_pale">GitHub</a></div>').click(() => {
-        shell.openExternal('https://github.com/dedpnd/yaradio-yamusic');
-    });
-
-    jQuery('div.footer__right').append(appendElement);
-
-    // add HQ element
-    const HQElement = jQuery('<div class="hqRadio__icon" title="Включить высокое качество"></div>').click(() => {
-        exec('a.toggleHQ()');
-    });
-
-    jQuery('div.head__right').prepend(HQElement);
 }
 
 // Yandex.Music init function
@@ -92,7 +59,6 @@ function addSwitcher(yandexRadioClass: string, yandexMusicClass: string) {
 
     const pageRoot = document.querySelector('.page-root');
 
-    // For yandex.music, because overlay playlist
     if (pageRoot.querySelector('.head.deco-pane')) {
         pageRoot.insertBefore(divBlock, pageRoot.querySelector('.head').nextSibling);
         return;
