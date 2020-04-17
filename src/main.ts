@@ -34,7 +34,7 @@ function createWindow(): BrowserWindow {
     const lastApp = store.get('lastApp');
 
     browserWindow = new BrowserWindow({
-        title: 'YaRadio',
+        title: 'Yandex Music',
         show: false,
         x: lastWindowState.x,
         y: lastWindowState.y,
@@ -85,7 +85,7 @@ function createWindow(): BrowserWindow {
     browserWindow.on('page-title-updated', (e: any) => {
         const history = e.sender.webContents.history;
         if (/radio/.test(history[history.length - 1])) {
-            browserWindow.setTitle('YaRadio');
+            browserWindow.setTitle('Yandex Radio');
             if (process.platform !== 'win32') {
                 app.getFileIcon(path.join(__dirname, '../media/icon', 'yaradio_32x32.png'))
                     .then((image: NativeImage) => {
@@ -93,7 +93,7 @@ function createWindow(): BrowserWindow {
                     });
             }
         } else {
-            browserWindow.setTitle('YaMusic');
+            browserWindow.setTitle('Yandex Music');
             if (process.platform !== 'win32') {
                 app.getFileIcon(path.join(__dirname, '../media/icon', 'yamusic_32x32.png'))
                     .then((image: NativeImage) => {
