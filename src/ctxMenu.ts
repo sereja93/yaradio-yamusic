@@ -1,40 +1,37 @@
 import * as path from 'path';
-import {App, Menu, Tray} from 'electron';
+import {App, Menu, Tray, BrowserWindow, nativeTheme, app} from 'electron';
 import {store} from './store';
 import {notify} from './notification';
 
 
-const iconPath = path.join(__dirname, '../', 'media/icon', 'music_16.png');
-
-
-function ctxTpl(win: any, app: App): Array<any> {
+function ctxTpl(win: BrowserWindow, app: App): Array<any> {
 
     return [
         {
             label: 'Play | Pause',
-            click: () => win.send('play'),
+            click: () => win.webContents.send('play'),
         },
         {
             label: 'Next Track',
-            click: () => win.send('next'),
+            click: () => win.webContents.send('next'),
         },
         {
             label: 'Previous Track',
-            click: () => win.send('prev'),
+            click: () => win.webContents.send('prev'),
         },
         {
             type: 'separator',
         },
         {
             label: 'Like  | Dislike',
-            click: () => win.send('like'),
+            click: () => win.webContents.send('like'),
         },
         {
             type: 'separator',
         },
         {
             label: 'Mute  | No mute',
-            click: () => win.send('mute'),
+            click: () => win.webContents.send('mute'),
         },
         {
             type: 'separator',
@@ -68,7 +65,7 @@ function ctxTpl(win: any, app: App): Array<any> {
     ];
 }
 
-function toggleWindowVisibility(win: any) {
+function toggleWindowVisibility(win: BrowserWindow) {
     if (win.isVisible()) {
         win.hide();
     } else {
@@ -76,11 +73,12 @@ function toggleWindowVisibility(win: any) {
     }
 }
 
-function createContextMenu(win: any, app: App) {
-
+function createContextMenu(win: BrowserWindow, app: App): Tray {
+    const iconPath = path.join(__dirname, '../', 'media/icon', contextMenuIcon());
     const ctxMenu = Menu.buildFromTemplate(ctxTpl(win, app));
 
     const appIcon = new Tray(iconPath);
+    appIcon.setTitle('');
 
     appIcon.setContextMenu(ctxMenu);
     appIcon.addListener('click', (e) => {
@@ -89,9 +87,29 @@ function createContextMenu(win: any, app: App) {
     });
 
     win.on('show', function () {
-        appIcon.setHighlightMode('always');
+        appIcon.setTitle('');
     });
+    nativeTheme.addListener('updated', () => updateTrayImage(appIcon));
 
+    return appIcon;
+
+}
+
+function updateTrayImage(tray: Tray) {
+    const iconPath = path.join(__dirname, '../', 'media/icon', contextMenuIcon());
+    tray.setImage(iconPath);
+}
+
+function contextMenuIcon(): string {
+
+    if (process.platform === 'darwin') {
+        if (nativeTheme.shouldUseDarkColors) {
+            return 'tray_white.png';
+        } else {
+            return 'tray_black.png';
+        }
+    }
+    return 'music_16.png';
 }
 
 export {createContextMenu};

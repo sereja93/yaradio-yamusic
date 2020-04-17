@@ -51,6 +51,8 @@ async function notify(title: string, msg: string, img: string, force: boolean) {
                     }
                 });
         }
+    } else if (force) {
+        sendNotify();
     }
 }
 
