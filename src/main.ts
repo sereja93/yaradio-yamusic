@@ -1,4 +1,4 @@
-import {app, BrowserWindow, NativeImage, session, WebContents} from 'electron';
+import {app, BrowserWindow, NativeImage, session, WebContents, systemPreferences} from 'electron';
 
 import * as path from 'path';
 import * as fs from 'mz/fs';
@@ -11,6 +11,7 @@ import * as ElectronStore from 'electron-store';
 import {createTouchBar} from './touchBar';
 
 
+const appName = 'Yandex Music';
 let browserWindow: BrowserWindow;
 const appRunning = app.requestSingleInstanceLock();
 
@@ -34,7 +35,7 @@ function createWindow(): BrowserWindow {
     const lastApp = store.get('lastApp');
 
     browserWindow = new BrowserWindow({
-        title: 'Yandex Music',
+        title: appName,
         show: false,
         x: lastWindowState.x,
         y: lastWindowState.y,
@@ -57,7 +58,7 @@ function createWindow(): BrowserWindow {
     createTouchBar(browserWindow);
 
     browserWindow.loadURL((() => {
-        if (lastApp === 'YaMusic') {
+        if (lastApp === appName) {
             return 'https://music.yandex.ru/';
         }
         return 'https://radio.yandex.ru/';
@@ -108,6 +109,7 @@ function createWindow(): BrowserWindow {
 }
 
 app.on('ready', () => {
+    systemPreferences.isTrustedAccessibilityClient(true);
     browserWindow = createWindow();
     createContextMenu(browserWindow, app);
     createGlobalShortcuts(browserWindow, app);

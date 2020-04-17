@@ -51,10 +51,10 @@ function addSwitcher(yandexRadioClass: string, yandexMusicClass: string) {
     }
 
     divBlock.querySelector<HTMLDivElement>('.yaradio').onclick = () => {
-        window.location.href = 'https://radio.yandex.ru/';
+        window.location.assign('https://radio.yandex.ru/');
     };
     divBlock.querySelector<HTMLDivElement>('.yamusic').onclick = () => {
-        window.location.href = 'https://music.yandex.ru/';
+        window.location.assign('https://music.yandex.ru/');
     };
 
     const pageRoot = document.querySelector('.page-root');
